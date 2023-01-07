@@ -21,6 +21,8 @@ def start():
             row.append(0)
         grid.append(row)
 
+    player = 1
+
     running = True
     while running:
         for event in pygame.event.get():
@@ -28,7 +30,14 @@ def start():
                 running = False
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
-                _handle_click(grid, pos[0], pos[1])
+                column = math.floor(pos[0] / 100)
+                row = _handle_click(grid, column, player)
+                if _check_for_win(grid, row, column):
+                    print(player, "wins")
+                if player == 1:
+                    player = 2
+                else:
+                    player = 1
 
         screen.fill((0, 128, 255))
         _draw_grid(screen, grid)
@@ -50,14 +59,45 @@ def _draw_grid(screen, grid):
         y = y + 100
 
 
-def _handle_click(grid, x, y):
-    column = math.floor(x / 100)
+def _handle_click(grid, column, player):
     i = 5
     while i >= 0:
         if grid[i][column] == 0:
-            grid[i][column] = 1
-            break
+            grid[i][column] = player
+            return i
         i = i - 1
+
+
+def _check_for_win(grid, r, c):
+    count = 1
+    while r + count <= 5 and grid[r + count][c] == grid[r][c]:
+        count += 1
+        if count == 4:
+            return True
+
+    count = 1
+    while c + count <= 6 and grid[r][c + count] == grid[r][c]:
+        count += 1
+        if count == 4:
+            return True
+
+    count = 1
+    while (
+        r + count <= 5 and c + count <= 6 and grid[r + count][c + count] == grid[r][c]
+    ):
+        count += 1
+        if count == 4:
+            return True
+
+    count = 1
+    while (
+        r + count <= 5 and c - count >= 0 and grid[r + count][c - count] == grid[r][c]
+    ):
+        count += 1
+        if count == 4:
+            return True
+
+    return False
 
 
 start()
