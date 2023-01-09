@@ -1,5 +1,5 @@
 # Connect4
-**Technologies used:** Python3, Python3 sockets
+**Technologies used:** Python3, pygame, sockets.
 
 If you want to play the game follow these steps:
 
