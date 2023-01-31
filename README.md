@@ -17,6 +17,6 @@ git clone git@github.com:rollnumber32/connect4.git
 python3 game.py
 ```
 
-**Note:** You much have git and python3 installed for this to work properly.
+**Note:** You must have git and python3 installed for this to work properly.
 \
 **Note:** Use python instead of python3 if you are on windows.
